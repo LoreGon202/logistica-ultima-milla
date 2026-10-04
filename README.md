@@ -38,4 +38,5 @@ La documentación completa del diagnóstico y contexto arquitectónico se encuen
 
 ## Video de sustentación
 
-[Enlace al video](PEGA-AQUÍ-TU-ENLACE-CUANDO-LO-TENGAS)
+https://youtu.be/jjgUap6X9fQ
+
