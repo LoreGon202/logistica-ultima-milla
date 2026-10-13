@@ -40,3 +40,41 @@ La documentación completa del diagnóstico y contexto arquitectónico se encuen
 
 https://youtu.be/jjgUap6X9fQ
 
+
+## Actividad 2: Requisitos y decisión estructural
+
+### Resumen del problema
+La plataforma debe centralizar pedidos, inventario, rutas y entregas de una empresa de
+retail digital que opera con múltiples canales de venta, resolviendo la falta de trazabilidad
+y coordinación identificada en la Actividad 1.
+
+### Requisitos prioritarios
+- Registrar pedidos desde cualquier canal y validar inventario antes de confirmarlos (RF-01, RF-02).
+- Rastrear el estado de cada pedido en tiempo real (RF-04).
+- Gestionar incidencias dentro de la misma plataforma (RF-06).
+- Cumplir tiempos de respuesta bajos, alta disponibilidad, trazabilidad completa y facilidad
+  de evolución sin reescribir el sistema (RNF-01, RNF-02, RNF-06, RNF-07).
+
+El catálogo completo de requisitos y su priorización está en
+[`/docs/actividad-2`](./docs/actividad-2).
+
+### Decisión arquitectónica
+Se eligió un **monolito modular con límites claros entre dominios** (pedidos, inventario,
+entregas, incidencias), en lugar de una arquitectura distribuida por servicios, dado que el
+volumen de operación actual no justifica la complejidad operativa adicional, y los módulos
+quedan diseñados para una futura separación si el negocio lo exige más adelante.
+
+El detalle completo de la decisión, alternativas consideradas, justificación y trade-offs
+está documentado en el
+[ADR-001](./docs/actividad-2/05-adr-decision-arquitectonica.md).
+
+### Documentación de la Actividad 2
+- [Catálogo de requisitos](./docs/actividad-2/01-catalogo-requisitos.md)
+- [Matriz de priorización](./docs/actividad-2/02-matriz-priorizacion.md)
+- [Escenarios de calidad](./docs/actividad-2/03-escenarios-calidad.md)
+- [Comparación de alternativas](./docs/actividad-2/04-comparacion-alternativas.md)
+- [ADR-001: Decisión arquitectónica](./docs/actividad-2/05-adr-decision-arquitectonica.md)
+
+### Video de sustentación
+[Enlace al video](PEGA-AQUÍ-TU-ENLACE-CUANDO-LO-TENGAS)
+
