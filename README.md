@@ -76,5 +76,43 @@ está documentado en el
 - [ADR-001: Decisión arquitectónica](./docs/actividad-2/05-adr-decision-arquitectonica.md)
 
 ### Video de sustentación
+https://youtu.be/oaRi0-4lsQ8
+
+
+## Actividad 3: Diseño y dominio
+
+### Flujo modelado
+Se modeló el flujo **asignar repartidor a una entrega**, que vincula una entrega existente
+(sin repartidor) a un repartidor disponible, protegiendo las reglas del negocio.
+
+### Modelo de dominio
+- **Entidades:** Cliente, Pedido, Entrega, Repartidor, Incidencia.
+- **Objetos de valor:** DeliveryId, DeliveryAddress, EstadoEntrega, Prioridad.
+- **Invariante principal del flujo:** una entrega no puede asignarse a un repartidor si ya
+  tiene uno asignado.
+
+El modelo completo, el glosario de lenguaje ubicuo, los escenarios de aceptación y los
+bounded contexts están en [`/docs/actividad-3`](./docs/actividad-3).
+
+### Arquitectura del código
+El dominio se protege mediante una separación en capas (Domain, Application, Infrastructure)
+con inversión de dependencias, documentada en [`Architecture.md`](./Architecture.md).
+
+
+### Decisiones de diseño
+Las decisiones clave (por qué la regla vive en la entidad, por qué se usa un puerto para
+consultar disponibilidad, entre otras) están en el
+[ADR-002](./docs/actividad-3/07-adr-decisiones-diseno.md).
+
+### Documentación de la Actividad 3
+- [Flujo y glosario](./docs/actividad-3/01-flujo-y-glosario.md)
+- [Modelo de dominio](./docs/actividad-3/02-modelo-dominio.md)
+- [Escenarios de aceptación](./docs/actividad-3/03-escenarios-aceptacion.md)
+- [Contextos y contratos](./docs/actividad-3/04-contextos-y-contratos.md)
+- [Casos de uso, puertos y adaptadores](./docs/actividad-3/05-casos-de-uso-puertos.md)
+- [Diagrama C4](./docs/actividad-3/06-diagrama-c4.md)
+- [ADR-002: Decisiones de diseño](./docs/actividad-3/07-adr-decisiones-diseno.md)
+
+### Video de sustentación
 [Enlace al video](PEGA-AQUÍ-TU-ENLACE-CUANDO-LO-TENGAS)
 
