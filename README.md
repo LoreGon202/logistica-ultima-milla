@@ -114,5 +114,5 @@ consultar disponibilidad, entre otras) están en el
 - [ADR-002: Decisiones de diseño](./docs/actividad-3/07-adr-decisiones-diseno.md)
 
 ### Video de sustentación
-[Enlace al video](PEGA-AQUÍ-TU-ENLACE-CUANDO-LO-TENGAS)
+https://youtu.be/tP8b1zUzyGM
 
