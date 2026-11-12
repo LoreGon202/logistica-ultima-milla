@@ -33,7 +33,7 @@ public class DeliveryTests
         var segundoCourier = Guid.NewGuid();
 
         // Cuando / Entonces
-        var exception = Assert.Throws<InvalidOperationException>(
+        var exception = Assert.Throws<DeliveryAlreadyAssignedException>(
             () => delivery.AssignCourier(segundoCourier));
 
         Assert.Equal("La entrega ya tiene un repartidor asignado.", exception.Message);
