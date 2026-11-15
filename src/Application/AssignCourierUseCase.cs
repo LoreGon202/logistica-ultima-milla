@@ -22,12 +22,12 @@ public sealed class AssignCourierUseCase
     {
         // 1. Cargar la entrega
         var delivery = await _repository.GetAsync(deliveryId)
-            ?? throw new InvalidOperationException("La entrega no existe.");
+            ?? throw new DeliveryNotFoundException(deliveryId);
 
         // 2. Consultar disponibilidad mediante un puerto, no una API concreta
         var disponible = await _availabilityChecker.IsAvailableAsync(courierId);
         if (!disponible)
-            throw new InvalidOperationException("El repartidor no está disponible.");
+            throw new CourierNotAvailableException(courierId);
 
         // 3. Proteger la invariante dentro de la entidad
         delivery.AssignCourier(courierId);
