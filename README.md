@@ -116,3 +116,79 @@ consultar disponibilidad, entre otras) están en el
 ### Video de sustentación
 https://youtu.be/tP8b1zUzyGM
 
+
+## Actividad 4: Construcción, validación y defensa final
+
+### Qué se implementó
+El flujo **asignar repartidor a una entrega**, diseñado en la Actividad 3, como un vertical
+slice ejecutable: entrada HTTP, caso de uso, dominio y persistencia en SQLite, con pruebas
+unitarias, de integración y de arquitectura.
+
+### Arquitectura
+```
+src/
+├── Domain/           → Delivery, objetos de valor e invariantes
+├── Application/      → AssignCourierUseCase, puertos y errores de aplicación
+├── Infrastructure/   → adaptadores SQLite y scripts de migración
+└── Api/              → entrada HTTP (solo traduce errores a códigos HTTP)
+tests/
+├── Domain.Tests/           → pruebas unitarias de las invariantes
+└── Api.IntegrationTests/   → pruebas de integración y de arquitectura
+```
+Las dependencias apuntan hacia adentro: `Domain` no depende de nadie, `Application` solo
+depende de `Domain`, e `Infrastructure` implementa los puertos de `Application`.
+
+### Requisitos
+- .NET SDK 10 (comprobar con `dotnet --version`)
+- No hace falta instalar ninguna base de datos: SQLite es un archivo.
+
+### Cómo ejecutarlo
+1. Clonar el repositorio y entrar a la carpeta:
+```
+git clone https://github.com/LoreGon202/logistica-ultima-milla.git
+cd logistica-ultima-milla
+```
+2. Arrancar la API (crea `logistica.db` y aplica las migraciones al iniciar):
+```
+dotnet run --project src/Api --urls http://localhost:5080
+```
+3. En otra terminal de PowerShell, probar el flujo con los datos de demostración:
+```
+curl.exe -i http://localhost:5080/health
+curl.exe -i http://localhost:5080/deliveries/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa
+'{"courierId":"11111111-1111-1111-1111-111111111111"}' | Out-File -Encoding ascii body-ok.json
+curl.exe -i -X POST http://localhost:5080/deliveries/aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa/assign-courier -H "Content-Type: application/json" --data "@body-ok.json"
+```
+
+### Datos de demostración (migración V002)
+| Tipo | Identificador | Estado |
+|---|---|---|
+| Entrega | `aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa` | Pendiente |
+| Entrega | `bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb` | Pendiente |
+| Repartidor | `11111111-1111-1111-1111-111111111111` | Disponible |
+| Repartidor | `22222222-2222-2222-2222-222222222222` | Ruta saturada |
+
+### Respuestas de la API
+| Situación | HTTP | Código |
+|---|---|---|
+| Asignación exitosa | 200 | — |
+| Repartidor vacío | 400 | `INVALID_COURIER` |
+| Entrega inexistente | 404 | `DELIVERY_NOT_FOUND` |
+| Entrega ya asignada | 409 | `DELIVERY_ALREADY_ASSIGNED` |
+| Repartidor no disponible | 409 | `COURIER_NOT_AVAILABLE` |
+| Error inesperado | 500 | mensaje genérico |
+
+### Cómo ejecutar las pruebas
+```
+dotnet test
+```
+Resultado esperado: **13 pruebas correctas** (4 unitarias del dominio, 5 de integración del
+flujo y 4 de arquitectura).
+
+### Documentación de la Actividad 4
+- [Riesgos, observabilidad y resultados](./docs/actividad-4/01-riesgos-observabilidad-resultados.md)
+- [ADR-003: Decisiones de implementación](./docs/actividad-4/02-adr-003-decisiones-implementacion.md)
+
+### Video de demostración y defensa final
+[Enlace al video](PEGA-AQUÍ-TU-ENLACE-CUANDO-LO-TENGAS)
+
